@@ -4,16 +4,20 @@
         DATA DIVISION.
         WORKING-STORAGE SECTION.
 
-        01 EMPLOYEE.
-            05 EMPLOYEE-ID      PIC 9(5).
-            05 EMPLOYEE-NAME    PIC X(30).
-            05 HOURS-WORKED     PIC 9(3)V99.
-            05 HOURLY-RATE      PIC 9(5)V99.
-            05 GROSS-PAY        PIC 9(7)V99.
+        01 NUMBER-OF-EMPLOYEES PIC 9(3) VALUE 0.
+        01 I PIC 9(3) VALUE 1.
+
+        01 EMPLOYEES.
+            05 EMPLOYEE OCCURS 1 TO 999 TIMES DEPENDING ON NUMBER-OF-EMPLOYEES.
+                10 EMPLOYEE-ID      PIC 9(5).
+                10 EMPLOYEE-NAME    PIC X(30).
+                10 HOURS-WORKED     PIC 9(3)V99.
+                10 HOURLY-RATE      PIC 9(5)V99.
+                10 GROSS-PAY        PIC 9(7)V99.
 
         01 COMPANY.
-            05 COMPANY-NAME      PIC X(30) VALUE "VALYE".
-            05 COMPANY-CITY  PIC X(30) VALUE "VALUE".
+            05 COMPANY-NAME      PIC X(30) VALUE "TD Bank".
+            05 COMPANY-CITY  PIC X(30) VALUE "Toronto".
 
         PROCEDURE DIVISION.
         MAIN.
@@ -23,29 +27,39 @@
             STOP RUN.
         
         GET-EMPLOYEE-INFO.
-            DISPLAY "Enter Employee ID: ".
-            ACCEPT EMPLOYEE-ID.
-            DISPLAY "Enter Employee Name: ".
-            ACCEPT EMPLOYEE-NAME.
-            DISPLAY "Enter Hours Worked: ".
-            ACCEPT HOURS-WORKED.
-            DISPLAY "Enter Hourly Rate: ".
-            ACCEPT HOURLY-RATE.
-            DISPLAY "Enter Company Name: ".
-            ACCEPT COMPANY-NAME.
-            DISPLAY "Enter Company City: ".
-            ACCEPT COMPANY-CITY.
-        
+            DISPLAY "Enter Number of Employees: "
+            ACCEPT NUMBER-OF-EMPLOYEES
+            PERFORM UNTIL I > NUMBER-OF-EMPLOYEES
+                DISPLAY "Enter Employee" I " ID: "
+                ACCEPT EMPLOYEE-ID(I)
+                DISPLAY "Enter Employee " I " Name: "
+                ACCEPT EMPLOYEE-NAME(I)
+                DISPLAY "Enter Hours Worked: "
+                ACCEPT HOURS-WORKED(I)
+                DISPLAY "Enter Hourly Rate: "
+                ACCEPT HOURLY-RATE(I)
+            ADD 1 TO I
+            END-PERFORM.
+
         CALCULATE-GROSS-PAY.
-            COMPUTE GROSS-PAY = HOURS-WORKED * HOURLY-RATE.
+            COMPUTE I = 1
+            PERFORM UNTIL I > NUMBER-OF-EMPLOYEES
+                COMPUTE GROSS-PAY(I) = HOURS-WORKED(I) * HOURLY-RATE(I)
+            ADD 1 TO I
+            END-PERFORM.
         
         DISPLAY-EMPLOYEE-INFO.
             DISPLAY X"0A" "----------- COMPANY INFORMATION ----------".
             DISPLAY "Company Name: " COMPANY-NAME.
             DISPLAY "Company City: " COMPANY-CITY.
-            DISPLAY X"0A" "----------- EMPLOYEE RECORD ----------".
-            DISPLAY "Employee ID: " EMPLOYEE-ID.
-            DISPLAY "Employee Name: " EMPLOYEE-NAME.
-            DISPLAY "Hours Worked: " HOURS-WORKED.
-            DISPLAY "Hourly Rate: " HOURLY-RATE.
-            DISPLAY "Gross Pay: " GROSS-PAY.
+            
+            COMPUTE I = 1
+            PERFORM UNTIL I > NUMBER-OF-EMPLOYEES
+                DISPLAY X"0A" "----------- EMPLOYEE " I " RECORD ----------"
+                DISPLAY "Employee ID: " EMPLOYEE-ID(I)
+                DISPLAY "Employee Name: " EMPLOYEE-NAME(I)
+                DISPLAY "Hours Worked: " HOURS-WORKED(I)
+                DISPLAY "Hourly Rate: " HOURLY-RATE(I)
+                DISPLAY "Gross Pay: " GROSS-PAY(I)
+            ADD 1 TO I
+            END-PERFORM.
