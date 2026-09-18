@@ -18,14 +18,15 @@
             
             DISPLAY "Enter your choice (number): ".
             ACCEPT CHOICE.
-            IF CHOICE = 1
+            EVALUATE CHOICE
+            WHEN 1
                 DISPLAY "Balance: " BALANCE
-            ELSE IF CHOICE = 2
+            WHEN 2
                 DISPLAY "HOW MUCH WOULD YOU LIKE TO DEPOSIT?"
                 ACCEPT DEPOSIT-AMOUNT
                 ADD DEPOSIT-AMOUNT TO BALANCE
                 DISPLAY "NEW BALANCE: " BALANCE
-            ELSE IF CHOICE = 3
+            WHEN 3
                 DISPLAY "HOW MUCH WOULD YOU LIKE TO WITHDRAW?"
                 ACCEPT WITHDRAW-AMOUNT
                 IF WITHDRAW-AMOUNT > BALANCE
@@ -34,10 +35,10 @@
                     SUBTRACT WITHDRAW-AMOUNT FROM BALANCE
                     DISPLAY "NEW BALANCE: " BALANCE
                 END-IF
-            ELSE IF CHOICE = 4
+            WHEN 4
                 DISPLAY "GOODBYE"
                 STOP RUN
-            ELSE
+            WHEN OTHER
                 DISPLAY "INVALID OPTION. PLEASE TRY AGAIN."
-            END-IF.
+            END-EVALUATE.
             STOP RUN.
