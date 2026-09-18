@@ -20,33 +20,34 @@
             DISPLAY "1. CHECK BALANCE".
             DISPLAY "2. DEPOSIT".
             DISPLAY "3. WITHDRAW".
-            DISPLAY "4. EXIT".
-            DISPLAY "".
+            DISPLAY "4. EXIT" X"0A".
             DISPLAY "Enter your choice (number): ".
             ACCEPT CHOICE.
 
         PROCESS-CHOICE.
-            EVALUATE CHOICE
-            WHEN 1
-                DISPLAY X"0A" "Balance: " BALANCE
-            WHEN 2
-                DISPLAY X"0A" "HOW MUCH WOULD YOU LIKE TO DEPOSIT?"
-                ACCEPT DEPOSIT-AMOUNT
-                ADD DEPOSIT-AMOUNT TO BALANCE
-                DISPLAY "NEW BALANCE: " BALANCE
-            WHEN 3
-                DISPLAY X"0A" "HOW MUCH WOULD YOU LIKE TO WITHDRAW?"
-                ACCEPT WITHDRAW-AMOUNT
-                IF WITHDRAW-AMOUNT > BALANCE
-                    DISPLAY X"0A" "INSUFFICIENT FUNDS"
-                ELSE
-                    SUBTRACT WITHDRAW-AMOUNT FROM BALANCE
-                    DISPLAY X"0A" "NEW BALANCE: " BALANCE
-                END-IF
-            WHEN 4
-                DISPLAY X"0A" "GOODBYE"
-                STOP RUN
-            WHEN OTHER
-                DISPLAY X"0A" "INVALID OPTION. PLEASE TRY AGAIN."
-            END-EVALUATE.
+            PERFORM UNTIL CHOICE = 4
+                EVALUATE CHOICE
+                    WHEN 1
+                        DISPLAY X"0A" "Balance: " BALANCE
+                    WHEN 2
+                        DISPLAY X"0A" "HOW MUCH WOULD YOU LIKE TO DEPOSIT?"
+                        ACCEPT DEPOSIT-AMOUNT
+                        ADD DEPOSIT-AMOUNT TO BALANCE
+                        DISPLAY "NEW BALANCE: " BALANCE
+                    WHEN 3
+                        DISPLAY X"0A" "HOW MUCH WOULD YOU LIKE TO WITHDRAW?"
+                        ACCEPT WITHDRAW-AMOUNT
+                        IF WITHDRAW-AMOUNT > BALANCE
+                            DISPLAY X"0A" "INSUFFICIENT FUNDS"
+                        ELSE
+                            SUBTRACT WITHDRAW-AMOUNT FROM BALANCE
+                            DISPLAY X"0A" "NEW BALANCE: " BALANCE
+                        END-IF
+                    WHEN 4
+                        DISPLAY X"0A" "GOODBYE"
+                    WHEN OTHER
+                        DISPLAY X"0A" "INVALID OPTION. PLEASE TRY AGAIN."
+                END-EVALUATE
+                PERFORM DISPLAY-MENU
+            END-PERFORM.
         STOP RUN.
