@@ -25,7 +25,7 @@
             ACCEPT CHOICE.
 
         PROCESS-CHOICE.
-            PERFORM UNTIL CHOICE = 4
+            PERFORM WITH TEST AFTER UNTIL CHOICE = 4
                 EVALUATE CHOICE
                     WHEN 1
                         DISPLAY X"0A" "Balance: " BALANCE
@@ -45,6 +45,7 @@
                         END-IF
                     WHEN 4
                         DISPLAY X"0A" "GOODBYE"
+                        STOP RUN
                     WHEN OTHER
                         DISPLAY X"0A" "INVALID OPTION. PLEASE TRY AGAIN."
                 END-EVALUATE
