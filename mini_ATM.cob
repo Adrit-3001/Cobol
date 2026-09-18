@@ -51,4 +51,4 @@
                 END-EVALUATE
                 PERFORM DISPLAY-MENU
             END-PERFORM.
-        STOP RUN.
+        *> STOP RUN.
